@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
                 val randomIndex = random.nextInt(24)
                 imageViewArray[randomIndex].visibility = View.VISIBLE
 
-                handler.postDelayed(runnable,250)
+                handler.postDelayed(runnable,350)
             }
         }
         handler.post(runnable)
