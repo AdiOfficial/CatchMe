@@ -15,33 +15,22 @@ import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
-
-    // Elde edilen score bilgisini tutan degisken.
     var score : Int = 0
-    // ImageView türünde veri saklayan ArrayList.
     var imageViewArray = ArrayList<ImageView>()
-    //
     var handler = Handler()
-    //
     var runnable = Runnable {  }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // ImageView'larin ekle.
         AddImageViews()
-
-        // ImageView'lari gorunmez yap, rasgele birini gorunur yap.
         hideImages()
 
         // Geri Sayım
-        // 1 dk boyunca her saniye (ms olarak verir)
-        object : CountDownTimer(59000,500){
-
+        object : CountDownTimer(60000,1000){
             // Sure bittiginde gerceklesecek operasyon.
             override fun onFinish() {
-
                 //
                 Time.text = "Time 0"
                 // Runnable durdur.
@@ -55,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
                 // Alert Operasyonu
                 val alert = AlertDialog.Builder(this@MainActivity)
-                alert.setTitle("Game")
+                alert.setTitle("YOUR SCORE : $score")
                 alert.setMessage("Restart the game?")
 
                 alert.setPositiveButton("Yes"){dialog, which ->
@@ -64,10 +53,11 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
                 alert.setNegativeButton("No"){dialog, which ->
-                    Toast.makeText(this@MainActivity,"Your Score $score",Toast.LENGTH_LONG).show() }
+                    Toast.makeText(this@MainActivity,"Your Score $score",Toast.LENGTH_LONG).show()
+                    finish()
+                }
                 alert.show()
             }
-
 
             // Her bir birim zamanda gerceklesecek operasyon.
             override fun onTick(millisUntilFinished: Long) {
