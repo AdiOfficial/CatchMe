@@ -16,9 +16,9 @@ import kotlin.collections.ArrayList
 class MainActivity : AppCompatActivity() {
 
 
-    //
+    // Elde edilen score bilgisini tutan degisken.
     var score : Int = 0
-    // ImageView'ları bir dizi icersine aktar.
+    // ImageView türünde veri saklayan ArrayList.
     var imageViewArray = ArrayList<ImageView>()
     //
     var handler = Handler()
@@ -29,42 +29,29 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // ImageView'ların imageViewArray icerisine aktarilmasi
-        imageViewArray.add(imageView1)
-        imageViewArray.add(imageView2)
-        imageViewArray.add(imageView3)
-        imageViewArray.add(imageView4)
-        imageViewArray.add(imageView5)
-        imageViewArray.add(imageView6)
-        imageViewArray.add(imageView7)
-        imageViewArray.add(imageView8)
-        imageViewArray.add(imageView9)
-        imageViewArray.add(imageView10)
-        imageViewArray.add(imageView11)
-        imageViewArray.add(imageView12)
-        imageViewArray.add(imageView13)
-        imageViewArray.add(imageView14)
-        imageViewArray.add(imageView15)
-        imageViewArray.add(imageView16)
-        imageViewArray.add(imageView17)
-        imageViewArray.add(imageView18)
-        imageViewArray.add(imageView19)
-        imageViewArray.add(imageView20)
-        imageViewArray.add(imageView21)
-        imageViewArray.add(imageView22)
-        imageViewArray.add(imageView23)
-        imageViewArray.add(imageView24)
+        // ImageView'larin ekle.
+        AddImageViews()
 
-        // Rasgele noktalarin gorunmez olmasi
+        // ImageView'lari gorunmez yap, rasgele birini gorunur yap.
         hideImages()
 
         // Geri Sayım
         // 1 dk boyunca her saniye (ms olarak verir)
-        object : CountDownTimer(60000,1000){
+        object : CountDownTimer(59000,500){
 
             // Sure bittiginde gerceklesecek operasyon.
             override fun onFinish() {
+
+                //
                 Time.text = "Time 0"
+                // Runnable durdur.
+
+                handler.removeCallbacks(runnable)
+                // Butun ImageView'lari gorunmez yap.
+
+                for(image in imageViewArray){
+                    image.visibility = View.INVISIBLE
+                }
 
                 // Alert Operasyonu
                 val alert = AlertDialog.Builder(this@MainActivity)
@@ -89,7 +76,9 @@ class MainActivity : AppCompatActivity() {
         }.start() // baslat.
     }
 
-    // imageViewArray icerisindeki her image'i gorunmez yap.
+    /*
+    imageViewArray icerisindeki gorselleri gizle.
+     */
     fun hideImages(){
         runnable = object : Runnable{
             override fun run() {
@@ -102,14 +91,47 @@ class MainActivity : AppCompatActivity() {
                 val randomIndex = random.nextInt(24)
                 imageViewArray[randomIndex].visibility = View.VISIBLE
 
-                handler.postDelayed(runnable,500)
+                handler.postDelayed(runnable,250)
             }
         }
-        handler.post { runnable }
+        handler.post(runnable)
     }
 
+    /*
+
+     */
     fun IncreaseScore(view : View){
         score++
         Score.text = "$score"
+    }
+
+    /*
+    ImageView'ların imageViewArray icerisine aktarilmasi
+     */
+    fun AddImageViews(){
+        imageViewArray.add(imageView1)
+        imageViewArray.add(imageView2)
+        imageViewArray.add(imageView3)
+        imageViewArray.add(imageView4)
+        imageViewArray.add(imageView5)
+        imageViewArray.add(imageView6)
+        imageViewArray.add(imageView7)
+        imageViewArray.add(imageView8)
+        imageViewArray.add(imageView9)
+        imageViewArray.add(imageView10)
+        imageViewArray.add(imageView11)
+        imageViewArray.add(imageView12)
+        imageViewArray.add(imageView13)
+        imageViewArray.add(imageView14)
+        imageViewArray.add(imageView15)
+        imageViewArray.add(imageView16)
+        imageViewArray.add(imageView17)
+        imageViewArray.add(imageView18)
+        imageViewArray.add(imageView19)
+        imageViewArray.add(imageView20)
+        imageViewArray.add(imageView21)
+        imageViewArray.add(imageView22)
+        imageViewArray.add(imageView23)
+        imageViewArray.add(imageView24)
     }
 }
